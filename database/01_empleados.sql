@@ -33,6 +33,10 @@ CREATE TABLE IF NOT EXISTS empleados (
   FechaActualizacion TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (EmpleadoId),
   UNIQUE KEY UQ_Empleados_Correo (Correo),
+  CONSTRAINT CK_Empleados_Nombre CHECK (CHAR_LENGTH(TRIM(Nombre)) BETWEEN 2 AND 100),
+  CONSTRAINT CK_Empleados_Apellido CHECK (CHAR_LENGTH(TRIM(Apellido)) BETWEEN 2 AND 100),
+  CONSTRAINT CK_Empleados_Correo_Formato CHECK (Correo REGEXP '^[^@[:space:]]+@[^@[:space:]]+\\.[^@[:space:]]{2,}$'),
+  CONSTRAINT CK_Empleados_Area CHECK (AreaId > 0),
   CONSTRAINT FK_Empleados_Areas
     FOREIGN KEY (AreaId) REFERENCES areas (AreaId),
   CONSTRAINT CK_Empleados_Fechas
