@@ -7,7 +7,9 @@ async function request(path, options = {}) {
   });
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    throw new Error(body.message || 'No se pudo completar la solicitud');
+    const error = new Error(body.message || 'No se pudo completar la solicitud');
+    error.errors = body.errors || {};
+    throw error;
   }
   return response.status === 204 ? null : response.json();
 }

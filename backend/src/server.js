@@ -19,6 +19,9 @@ app.use((error, _req, res, _next) => {
   if (error.code === 'ER_DUP_ENTRY') {
     return res.status(409).json({ message: 'Ya existe un empleado con ese correo.' });
   }
+  if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+    return res.status(400).json({ message: 'El área seleccionada no existe.' });
+  }
   return res.status(500).json({ message: 'Error interno del servidor.' });
 });
 
