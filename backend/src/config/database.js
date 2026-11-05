@@ -1,33 +1,22 @@
-import sql from 'mssql';
+import mysql from 'mysql2/promise';
 
 const config = {
-  server: process.env.DB_SERVER,
-  port: Number(process.env.DB_PORT || 1433),
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  options: {
-    encrypt: process.env.DB_ENCRYPT === 'true',
-    trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE !== 'false',
-  },
-  pool: {
-    max: 10,
-    min: 0,
-    idleTimeoutMillis: 30000,
-  },
+  host: process.env.DB_HOST || '127.0.0.1',
+  port: Number(process.env.DB_PORT || 3306),
+  database: process.env.DB_NAME || 'empleados_db',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  dateStrings: true,
 };
 
-let poolPromise;
+let pool;
 
 export function getPool() {
-  if (!poolPromise) {
-    poolPromise = sql.connect(config).catch((error) => {
-      poolPromise = undefined;
-      throw error;
-    });
+  if (!pool) {
+    pool = mysql.createPool(config);
   }
-
-  return poolPromise;
+  return pool;
 }
-
-export { sql };

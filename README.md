@@ -1,21 +1,22 @@
 # empleados
 Proyecto de gestión de empleados
 
-## Base de datos
+## Base de datos MySQL en XAMPP
 
-El script inicial para SQL Server se encuentra en
+El script para MySQL/XAMPP se encuentra en
 [`database/01_empleados.sql`](database/01_empleados.sql). Crea `EmpleadosDB`,
-las tablas `Areas` y `Empleados`, datos iniciales de áreas y procedimientos
-almacenados para listar, consultar, crear, actualizar y dar de baja empleados.
+la base `empleados_db`, las tablas `areas` y `empleados`, datos iniciales de áreas y una vista para
+consultar los empleados con su área.
 
-Ejecuta el script desde SQL Server Management Studio o `sqlcmd`. La eliminación
-es una baja lógica: el empleado queda inactivo y no se borra físicamente.
+En XAMPP inicia **MySQL** y **Apache**, abre phpMyAdmin, selecciona la pestaña
+**SQL** y ejecuta el script. La eliminación es una baja lógica: el empleado
+queda inactivo y no se borra físicamente.
 
 ## Aplicación web
 
 El proyecto está dividido en:
 
-- `backend`: API REST con Node.js, Express y `mssql`.
+- `backend`: API REST con Node.js, Express y `mysql2`.
 - `frontend`: interfaz React con Vite.
 
 ### Ejecutar el backend
@@ -23,7 +24,8 @@ El proyecto está dividido en:
 ```bash
 cd backend
 cp .env.example .env
-# Completa DB_SERVER, DB_NAME, DB_USER y DB_PASSWORD
+# Para XAMPP normalmente root no tiene contraseña
+# Ajusta DB_PASSWORD si configuraste una
 npm install
 npm run dev
 ```

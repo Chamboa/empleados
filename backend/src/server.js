@@ -16,7 +16,7 @@ app.use('/api/areas', areasRoutes);
 
 app.use((error, _req, res, _next) => {
   console.error(error);
-  if (error.number === 2627 || error.number === 2601) {
+  if (error.code === 'ER_DUP_ENTRY') {
     return res.status(409).json({ message: 'Ya existe un empleado con ese correo.' });
   }
   return res.status(500).json({ message: 'Error interno del servidor.' });
