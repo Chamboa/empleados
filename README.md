@@ -42,6 +42,18 @@ npm install
 npm run dev
 ```
 
+env:
+PORT=4000
+CLIENT_URL=http://localhost:5173
+
+# Configuración MySQL de XAMPP
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=empleados_db
+DB_USER=root
+DB_PASSWORD=
+
+
 La interfaz queda disponible en `http://localhost:5173`. Si la API usa otra
 dirección, crea `frontend/.env` con
 `VITE_API_URL=http://localhost:4000/api`.
